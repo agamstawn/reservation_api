@@ -64,6 +64,8 @@ class ReservationsController < ApplicationController
         phone.save
       end
       json_response(reservation, :created)
+    else
+      json_response(reservation, :expectation_failed)
     end
   end
 
@@ -90,7 +92,18 @@ class ReservationsController < ApplicationController
     guest.last_name = payload_params.last if payload_params.first.include?('last_name')
   end
 
-  def update
+  def change_reservation
+    current_reservation = Reservation.find_by_code(params["code"])
+    if current_reservation.present?
+    reservation_params = params.to_enum.to_h
+    reservation_params.each do |res_param|
+      update_reservation(current_reservation, res_param)
+      current_reservation.save
+    end
+    json_response(current_reservation, :accepted)
+    else
+    json_response(current_reservation, :not_found)  
+    end
   end
 
 
