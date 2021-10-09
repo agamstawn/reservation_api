@@ -92,8 +92,8 @@ class ReservationsController < ApplicationController
     guest.last_name = payload_params.last if payload_params.first.include?('last_name')
   end
 
-  def change_reservation
-    current_reservation = Reservation.find_by_code(params["code"])
+  def update
+    current_reservation = Reservation.find_by_code(params["id"])
     if current_reservation.present?
     reservation_params = params.to_enum.to_h
     reservation_params.each do |res_param|

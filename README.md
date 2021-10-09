@@ -86,7 +86,7 @@ and will be return with status 417 expectation_failed if failed to create reserv
 
 Post change reservation
 
-- use method POST and url localhost:3000/reservations/XXX123445678
+- use method PUT and url localhost:3000/reservations/XXX123445678
 - make sure code of reservation 'XXX123445678' has been created before
 - fill the body with format json 
 
